@@ -12,8 +12,7 @@ namespace GUILIB.Core
         public static bool resizable;
 
         // To prevent System.StackOverflowException
-        public static Rectangle mouseRectangleSetter { private set { mouseRectangle = value; } get { return mouseRectangle; } }
-        public static Rectangle mouseRectangle;
+        public static Rectangle mouseRectangle { private set; get; }
 
         /// <summary>
         ///     <para>Prepares all variables for Window class.</para>

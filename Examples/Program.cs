@@ -17,7 +17,6 @@ namespace Examples
             buttonWidget.OnButtonPressed += ButtonWidget_OnButtonPressed;
             buttonWidget.OnMouseExited += ButtonWidget_OnMouseExited;
             buttonWidget.OnMouseHover += ButtonWidget_OnMouseHover;
-
             Window.Setup();
             Window.Run();
             Window.Draw(widgets, Color.GRAY);

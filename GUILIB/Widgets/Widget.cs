@@ -2,6 +2,7 @@
 
 namespace GUILIB.Widgets
 {
+    // To do: Add "size" and "position" variables that are accessible
     public abstract class Widget
     {
         protected Rectangle _widgetRectangle;

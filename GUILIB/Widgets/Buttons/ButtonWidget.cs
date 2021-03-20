@@ -32,7 +32,7 @@ namespace GUILIB.Widgets.Buttons
 
         public override void Update()
         {
-            if (CheckCollisionRecs(_widgetRectangle, Window.mouseRectangleSetter))
+            if (CheckCollisionRecs(_widgetRectangle, Window.mouseRectangle))
             {
                 if (IsMouseButtonDown(MouseButton.MOUSE_LEFT_BUTTON))
                 {
