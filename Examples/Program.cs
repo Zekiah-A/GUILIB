@@ -3,6 +3,7 @@ using GUILIB.Core;
 using GUILIB.Widgets;
 using GUILIB.Widgets.Buttons;
 using GUILIB.Widgets.Other;
+using GUILIB.Widgets.Text;
 using GUILIB.Styles.Buttons;
 using Raylib_cs;
 
@@ -13,12 +14,15 @@ namespace Examples
         static BackgroundWidget backgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
         static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
 
+        static string path = "cool.png";
+        static TextureBackgroundWidget textureBackgroundWidget = new TextureBackgroundWidget(path, 10, 20, Color.BLACK);
+
         static int clicksAmount;
         static LabelWidget labelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {clicksAmount}", true, 15);
 
         // Note: { backgroundWidget, buttonWidget } will look different than { buttonWidget, backgroundWidget}.
         //       Because it will draw the backgroundWidget THEN the buttonWidget. If you do the opposite you won't see the button.
-        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget };
+        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget, /* textureBackgroundWidget  */};
 
         static void Main()
         {
