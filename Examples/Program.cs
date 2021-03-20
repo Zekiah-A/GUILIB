@@ -11,7 +11,7 @@ namespace Examples
     class Program
     {
         static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
-        static RectWidget rectWidget = new RectWidget(Color.RED);
+        static RectWidget rectWidget = new RectWidget(100, 100, 20, 20, Color.RED);
         static Widget[] widgets = new Widget[] { buttonWidget, rectWidget };
 
         static void Main()
