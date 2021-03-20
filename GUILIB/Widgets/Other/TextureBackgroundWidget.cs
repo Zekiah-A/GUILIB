@@ -8,7 +8,7 @@ namespace GUILIB.Widgets.Other
     public class TextureBackgroundWidget : Widget
     { 
         //Image image; 
-        Texture2D texture ;
+        public Texture2D texture ;
         public Color colour;
         public int posX;
         public int posY;
