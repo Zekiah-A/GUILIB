@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GUILIB.Core;
 using GUILIB.Widgets;
 using GUILIB.Widgets.Buttons;
@@ -10,46 +11,55 @@ namespace Examples
 {
     class Program
     {
-        static BackgroundWidget backgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
-        static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
+        static BackgroundWidget BackgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
+        static ButtonWidget ButtonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
 
-        static int clicksAmount;
-        static LabelWidget labelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {clicksAmount}", true, 15);
+        static int ClicksAmount;
+        static LabelWidget LabelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {ClicksAmount}", true, 15);
 
-        // Note: { backgroundWidget, buttonWidget } will look different than { buttonWidget, backgroundWidget}.
-        //       Because it will draw the backgroundWidget THEN the buttonWidget. If you do the opposite you won't see the button.
-        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget };
+        // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
+        //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
+        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget };
 
         static void Main()
         {
-            buttonWidget.OnButtonPressed += ButtonWidget_OnButtonPressed;
-            buttonWidget.OnMouseExited += ButtonWidget_OnMouseExited;
-            buttonWidget.OnMouseHover += ButtonWidget_OnMouseHover;
+            ButtonWidget.OnButtonPressed += ButtonWidget_OnButtonPressed;
+            ButtonWidget.OnMouseExited += ButtonWidget_OnMouseExited;
+            ButtonWidget.OnMouseHover += ButtonWidget_OnMouseHover;
 
             Window.Setup();
             Window.Run();
-            Window.Draw(widgets, Color.GRAY);
+
+            while (!Window.ProgramClosed)
+            {
+                Window.Draw(Widget.ToArray(), Color.GRAY);
+            }
         }
 
         private static void ButtonWidget_OnMouseHover(object sender, EventArgs eventArgs)
         {
-            buttonWidget.textSize = 14;
-            buttonWidget.text = "Hovering";
+            ButtonWidget.textSize = 14;
+            ButtonWidget.text = "Hovering";
         }
 
         private static void ButtonWidget_OnMouseExited(object sender, EventArgs eventArgs)
         {
-            buttonWidget.textSize = 14;
-            buttonWidget.text = "Outside";
+            ButtonWidget.textSize = 14;
+            ButtonWidget.text = "Outside";
         }
 
         private static void ButtonWidget_OnButtonPressed(object sender, EventArgs eventArgs)
         {
-            buttonWidget.textSize = 14;
-            buttonWidget.text = "Pressed";
+            ButtonWidget.textSize = 14;
+            ButtonWidget.text = "Pressed";
 
-            clicksAmount++;
-            labelWidget.text = $"Clicks: {clicksAmount}";
+            if (ClicksAmount == 15)
+            {
+                Widget.Add(new LabelWidget(new Rectangle(256, 64, 128, 128), Color.RED, "Level up!", true, 25));
+            }
+
+            ClicksAmount++;
+            LabelWidget.text = $"Clicks: {ClicksAmount}";
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GUILIB.Widgets
 
         public virtual void Update()
         {
-            if (CheckCollisionRecs(widgetRectangle, Window.mouseRectangle))
+            if (CheckCollisionRecs(widgetRectangle, Window.MouseRectangle))
             {
                 OnMouseHover?.Invoke(this, EventArgs.Empty);
             }
