@@ -1,15 +1,38 @@
-﻿using Raylib_cs;
+﻿using System;
+using Raylib_cs;
+using static Raylib_cs.Raylib;
+using GUILIB.Core;
 
 namespace GUILIB.Widgets
 {
-    // To do: Add "size" and "position" variables that are accessible
     public abstract class Widget
     {
-        protected Rectangle _widgetRectangle;
+        public event EventHandler OnMouseHover;
+        public event EventHandler OnMouseExited;
+
+        /// <summary>
+        ///     Use to change the widget's position and size.
+        /// </summary>
+        public Rectangle widgetRectangle;
+        
         protected Color _backgroundColor;
         protected Color _outlineColor;
 
-        public virtual void Update() { }
-        public virtual void Draw() { }
+        public virtual void Update()
+        {
+            if (CheckCollisionRecs(widgetRectangle, Window.mouseRectangle))
+            {
+                OnMouseHover?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                OnMouseExited?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public virtual void Draw()
+        {
+            DrawRectangleRec(widgetRectangle, _backgroundColor);
+        }
     }
 }

@@ -9,8 +9,8 @@ namespace GUILIB.Widgets.Buttons
     public class ButtonWidget : Widget
     {
         public event EventHandler OnButtonPressed;
-        public event EventHandler OnMouseExited;
-        public event EventHandler OnMouseHover;
+        public new event EventHandler OnMouseExited;
+        public new event EventHandler OnMouseHover;
 
         public string text;
         public int textSize;
@@ -24,7 +24,7 @@ namespace GUILIB.Widgets.Buttons
 
         public ButtonWidget(Rectangle rectangle, ButtonStyle buttonStyle, string text, int textSize)
         {
-            _widgetRectangle = rectangle;
+            widgetRectangle = rectangle;
             this.buttonStyle = buttonStyle;
             this.text = text;
             this.textSize = textSize;
@@ -32,12 +32,16 @@ namespace GUILIB.Widgets.Buttons
 
         public override void Update()
         {
-            if (CheckCollisionRecs(_widgetRectangle, Window.mouseRectangle))
+            if (CheckCollisionRecs(widgetRectangle, Window.mouseRectangle))
             {
-                if (IsMouseButtonDown(MouseButton.MOUSE_LEFT_BUTTON))
+                if (IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
                 {
                     OnButtonPressed?.Invoke(this, EventArgs.Empty);
                     isToggled = !isToggled;
+                }
+
+                if (IsMouseButtonDown(MouseButton.MOUSE_LEFT_BUTTON))
+                {
                     _currentBackgroundColor = buttonStyle.backgroundPressedColor;
                     _currentOutlineColor = buttonStyle.outlinePressedColor;
                     _currentTextColor = buttonStyle.outlinePressedColor;
@@ -61,16 +65,16 @@ namespace GUILIB.Widgets.Buttons
             switch (buttonStyle.textMargin)
             {
                 case "TopLeft":
-                    _textRectangle = new Rectangle(_widgetRectangle.x + buttonStyle.outlineThickness, _widgetRectangle.y + buttonStyle.outlineThickness,
-                                                   _widgetRectangle.width - buttonStyle.outlineThickness, _widgetRectangle.height - buttonStyle.outlineThickness);
+                    _textRectangle = new Rectangle(widgetRectangle.x + buttonStyle.outlineThickness, widgetRectangle.y + buttonStyle.outlineThickness,
+                                                   widgetRectangle.width - buttonStyle.outlineThickness, widgetRectangle.height - buttonStyle.outlineThickness);
                     break;
             }
         }
 
         public override void Draw()
         {
-            DrawRectangleRounded(_widgetRectangle, buttonStyle.roundness, 8, _currentBackgroundColor);
-            DrawRectangleLinesEx(_widgetRectangle, buttonStyle.outlineThickness, _currentOutlineColor);
+            DrawRectangleRounded(widgetRectangle, buttonStyle.roundness, 8, _currentBackgroundColor);
+            DrawRectangleLinesEx(widgetRectangle, buttonStyle.outlineThickness, _currentOutlineColor);
             DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, true, _currentTextColor);
         }
     }

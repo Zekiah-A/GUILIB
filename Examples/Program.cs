@@ -10,15 +10,22 @@ namespace Examples
 {
     class Program
     {
+        static BackgroundWidget backgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
         static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
-        static RectWidget rectWidget = new RectWidget(new Rectangle(70, 70, 10, 10), Color.RED);
-        static Widget[] widgets = new Widget[] { buttonWidget, rectWidget };
+
+        static int clicksAmount;
+        static LabelWidget labelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {clicksAmount}", true, 15);
+
+        // Note: { backgroundWidget, buttonWidget } will look different than { buttonWidget, backgroundWidget}.
+        //       Because it will draw the backgroundWidget THEN the buttonWidget. If you do the opposite you won't see the button.
+        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget };
 
         static void Main()
         {
             buttonWidget.OnButtonPressed += ButtonWidget_OnButtonPressed;
             buttonWidget.OnMouseExited += ButtonWidget_OnMouseExited;
             buttonWidget.OnMouseHover += ButtonWidget_OnMouseHover;
+
             Window.Setup();
             Window.Run();
             Window.Draw(widgets, Color.GRAY);
@@ -40,6 +47,9 @@ namespace Examples
         {
             buttonWidget.textSize = 14;
             buttonWidget.text = "Pressed";
+
+            clicksAmount++;
+            labelWidget.text = $"Clicks: {clicksAmount}";
         }
     }
 }
