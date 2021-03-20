@@ -12,7 +12,7 @@ namespace Examples
     {
         static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
         //static ButtonWidget e = new ButtonWidget(new Rectangle(100, 42, 100, 80), new ButtonStyle(), "Click me!", 15);
-        static RectWidget rectWidget = new RectWidget(new Color());
+        static RectWidget rectWidget = new RectWidget(Color.RED);
         static Widget[] widgets = new Widget[] { buttonWidget, rectWidget };
 
         static void Main()
