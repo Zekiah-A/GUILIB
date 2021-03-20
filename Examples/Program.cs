@@ -22,7 +22,7 @@ namespace Examples
 
         // Note: { backgroundWidget, buttonWidget } will look different than { buttonWidget, backgroundWidget}.
         //       Because it will draw the backgroundWidget THEN the buttonWidget. If you do the opposite you won't see the button.
-        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget, /* textureBackgroundWidget  */};
+        static Widget[] widgets = new Widget[] { backgroundWidget, buttonWidget, labelWidget,  textureBackgroundWidget };
 
         static void Main()
         {
