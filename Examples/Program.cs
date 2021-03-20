@@ -2,6 +2,7 @@
 using GUILIB.Core;
 using GUILIB.Widgets;
 using GUILIB.Widgets.Buttons;
+using GUILIB.Widgets.Other;
 using GUILIB.Styles.Buttons;
 using Raylib_cs;
 
@@ -10,7 +11,9 @@ namespace Examples
     class Program
     {
         static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
-        static Widget[] widgets = new Widget[] { buttonWidget };
+        //static ButtonWidget e = new ButtonWidget(new Rectangle(100, 42, 100, 80), new ButtonStyle(), "Click me!", 15);
+        static RectWidget rectWidget = new RectWidget(new Color());
+        static Widget[] widgets = new Widget[] { buttonWidget, rectWidget };
 
         static void Main()
         {

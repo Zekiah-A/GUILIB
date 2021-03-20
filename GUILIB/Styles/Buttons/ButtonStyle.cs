@@ -4,7 +4,7 @@ namespace GUILIB.Styles.Buttons
 {
     public class ButtonStyle
     {
-        #region Colors
+        #region Colours
         public Color backgroundIdleColor = new Color(200, 200, 200, 255);
         public Color backgroundHoverColor = new Color(230, 230, 230, 255);
         public Color backgroundPressedColor = new Color(100, 100, 100, 255);
