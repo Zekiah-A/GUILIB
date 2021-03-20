@@ -9,11 +9,17 @@ namespace GUILIB.Widgets.Other
     {
         public event EventHandler OnMouseHover;   
         public event EventHandler OnMouseExited;
-        //private 
+        
+    private int _posX; private int _posY;
+    private int _width; private int _height;
         private Color _backgroundColor;
 
-        public RectWidget(Color background)
+        public RectWidget(int Xposition, int Yposition, int horizontal, int vertical, Color background)
         {
+            _posX = Xposition;
+            _posY = Yposition;
+            _width = horizontal;
+            _height = vertical;
             _backgroundColor = background;
         }
 
@@ -22,7 +28,7 @@ namespace GUILIB.Widgets.Other
             if (CheckCollisionRecs(_widgetRectangle, Window.mouseRectangle))
             {
                 OnMouseHover?.Invoke(this, EventArgs.Empty);
-            }
+            } 
             else
             {
                 OnMouseExited?.Invoke(this, EventArgs.Empty);
@@ -30,9 +36,7 @@ namespace GUILIB.Widgets.Other
         }
         public override void Draw()
         {
-            //DrawRectangle(_widgetRectangle);
-            //DrawRectangle(int posX, int posY, int width, int height, Color color);
-            DrawRectangle(10, 10, 10, 10, _backgroundColor);
+            DrawRectangle(_posX, _posY, _width, _height, _backgroundColor);
         }
     }
 }
