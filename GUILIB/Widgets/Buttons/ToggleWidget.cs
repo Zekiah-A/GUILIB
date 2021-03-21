@@ -40,8 +40,9 @@ namespace GUILIB.Widgets
         
         public override void Draw() //TODO: Add back buttonstyle. (toggle style)
         {
+            DrawRectangleLinesEx(new Rectangle(widgetRectangle.x - _border / 2, widgetRectangle.y - _border / 2, widgetRectangle.width + _border, widgetRectangle.height+ _border),  /*buttonStyle.outlineThickness*/ 10, /*_currentOutlineColor*/ Color.GOLD);
             DrawRectangleRounded(widgetRectangle, /* buttonStyle.roundness*/ 0, 8, _currentBackgroundColour);
-            DrawRectangleLinesEx(widgetRectangle,  /*buttonStyle.outlineThickness*/ 2, _currentOutlineColor);
+            
             if(isOn)
             {
                 DrawRectangleRounded(new Rectangle(widgetRectangle.x, widgetRectangle.y/*+_border/2*/, widgetRectangle.height, widgetRectangle.height/*-_border*/), 0, 8, Color.WHITE);
