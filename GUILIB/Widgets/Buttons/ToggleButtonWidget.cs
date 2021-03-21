@@ -23,7 +23,7 @@ namespace GUILIB.Widgets
         public Color outlineButtonColor = new Color(0, 0, 0, 255);
         public Rectangle buttonRectangle;
 
-        public ToggleButtonWidget(Rectangle widgetRectangle, Color color, float roundness = 0.25f, int outlineThickness = 1) : base(widgetRectangle, color)
+        public ToggleButtonWidget(Rectangle widgetRectangle, Color color, bool scales, float roundness = 0.25f, int outlineThickness = 1) : base(widgetRectangle, color, scales)
         {
             this.roundness = roundness;
             this.buttonRoundness = roundness;
@@ -42,13 +42,31 @@ namespace GUILIB.Widgets
                     OnButtonToggled?.Invoke(this, EventArgs.Empty);
                     if (isToggled)
                     {
-                        buttonRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y,
-                                                        widgetRectangle.width / 3, widgetRectangle.height);
+                        if(scales)
+                        {
+                            float scaledWidth =  widgetRectangle.width / 3 / 100 * GetScreenWidth();
+                            buttonRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y,
+                                                            scaledWidth, (widgetRectangle.height / 100) * GetScreenHeight());
+                        }
+                        else
+                        {
+                            buttonRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y,
+                                                            widgetRectangle.width / 3, widgetRectangle.height);
+                        }
                     }
                     else
                     {
-                        buttonRectangle = new Rectangle(widgetRectangle.x + widgetRectangle.width - buttonRectangle.width, widgetRectangle.y,
-                                                        widgetRectangle.width / 3, widgetRectangle.height);
+                        if(scales)
+                        {
+                            float scaledWidth =  widgetRectangle.width / 3 / 100 * GetScreenWidth();
+                            buttonRectangle = new Rectangle(widgetRectangle.x + scaledWidth - buttonRectangle.width, widgetRectangle.y,
+                                                            scaledWidth, (widgetRectangle.height / 100) * GetScreenHeight());
+                        }
+                        else
+                        {
+                            buttonRectangle = new Rectangle(widgetRectangle.x + widgetRectangle.width - buttonRectangle.width, widgetRectangle.y,
+                                                            widgetRectangle.width / 3, widgetRectangle.height);
+                        }
                     }
                     isToggled = !isToggled;
                 }
@@ -56,12 +74,22 @@ namespace GUILIB.Widgets
         }
 
         public override void Draw()
-        {
-            DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness + 1, outlineColor);
-            DrawRectangleRounded(widgetRectangle, roundness, 8, color);
+        { //widgetRectangle.x, widgetRectangle.y, (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()
+            if(scales)
+            {
+                DrawRectangleRoundedLines(new Rectangle(widgetRectangle.x, widgetRectangle.y, (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, outlineThickness + 1, outlineColor);
+                DrawRectangleRounded(new Rectangle(widgetRectangle.x, widgetRectangle.y, (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, color);
+
+                DrawRectangleRoundedLines(buttonRectangle, buttonRoundness, 8, outlineButtonThickness + 1, outlineButtonColor);
+                DrawRectangleRounded(buttonRectangle, buttonRoundness, 8, buttonColor);
+            }else
+            {
+                DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness + 1, outlineColor);
+                DrawRectangleRounded(widgetRectangle, roundness, 8, color);
             
-            DrawRectangleRoundedLines(buttonRectangle, buttonRoundness, 8, outlineButtonThickness + 1, outlineButtonColor);
-            DrawRectangleRounded(buttonRectangle, buttonRoundness, 8, buttonColor);
+                DrawRectangleRoundedLines(buttonRectangle, buttonRoundness, 8, outlineButtonThickness + 1, outlineButtonColor);
+                DrawRectangleRounded(buttonRectangle, buttonRoundness, 8, buttonColor);
+            }
         }
     }
 }
