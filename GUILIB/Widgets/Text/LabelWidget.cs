@@ -1,7 +1,7 @@
 ﻿using static Raylib_cs.Raylib;
 using Raylib_cs;
 
-namespace GUILIB.Widgets.Other
+namespace GUILIB.Widgets.Text
 {
     public class LabelWidget : Widget
     {
