@@ -6,28 +6,32 @@ namespace GUILIB.Core
 {
     public static class Window
     {
-        public static string title;
-        public static int width;
-        public static int height;
-        public static bool resizable;
+        public static string Title;
+        public static int Width;
+        public static int Height;
+        public static bool Resizable;
 
-        // To prevent System.StackOverflowException
-        public static Rectangle mouseRectangle { private set; get; }
+        /// <summary>
+        ///     When the users closes the program, this bool becomes true.
+        /// </summary>
+        public static bool ProgramClosed { private set { } get { return WindowShouldClose(); } }
+
+        public static Rectangle MouseRectangle { private set; get; }
 
         /// <summary>
         ///     <para>Prepares all variables for Window class.</para>
         ///     Note: The minimum window size is going to be set according to the passed width and height. (Only if resizable is true).
         /// </summary>
-        /// <param name="_title"> The window's title.</param>
-        /// <param name="_width"> Sets the window's width.</param>
-        /// <param name="_height"> Sets the window's height.</param>
-        /// <param name="_resizable"> Enable or disable window resizing.</param>
-        public static void Setup(string _title = "GUILIB", int _width = 1024, int _height = 576, bool _resizable = true)
+        /// <param name="title"> The window's title.</param>
+        /// <param name="width"> Sets the window's width.</param>
+        /// <param name="height"> Sets the window's height.</param>
+        /// <param name="resizable"> Enable or disable window resizing.</param>
+        public static void Setup(string title = "GUILIB", int width = 1024, int height = 576, bool resizable = true)
         {
-            title = _title;
-            width = _width;
-            height = _height;
-            resizable = _resizable;
+            Title = title;
+            Width = width;
+            Height = height;
+            Resizable = resizable;
         }
 
         /// <summary>
@@ -36,12 +40,12 @@ namespace GUILIB.Core
         /// </summary>
         public static void Run()
         {
-            if (resizable)
+            if (Resizable)
             {
                 SetConfigFlags(ConfigFlag.FLAG_WINDOW_RESIZABLE);
             }
-            InitWindow(width, height, title);
-            SetWindowMinSize(width, height);
+            InitWindow(Width, Height, Title);
+            SetWindowMinSize(Width, Height);
             SetTargetFPS(60);
         }
 
@@ -51,10 +55,9 @@ namespace GUILIB.Core
         /// <param name="widgets"> An array that contains all window's widgets.</param>
         public static void Draw(Widget[] widgets, Color backgroundColor)
         {
-
-            while (!WindowShouldClose())
+            if (!ProgramClosed)
             {
-                mouseRectangle = new Rectangle(GetMouseX(), GetMouseY(), 1, 1);
+                MouseRectangle = new Rectangle(GetMouseX(), GetMouseY(), 1, 1);
 
                 foreach (Widget widget in widgets)
                 {
@@ -71,7 +74,10 @@ namespace GUILIB.Core
 
                 EndDrawing();
             }
-            CloseWindow();
+            else
+            {
+                CloseWindow();
+            }
         }
     }
 }
