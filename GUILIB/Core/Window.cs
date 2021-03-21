@@ -51,11 +51,6 @@ namespace GUILIB.Core
         /// <param name="widgets"> An array that contains all window's widgets.</param>
         public static void Draw(Widget[] widgets, Color backgroundColor)
         {
-            //Load all textures
-            foreach (Widget widget in widgets)
-            {
-                widget.texture = LoadTexture(widget.path);
-            }
 
             while (!WindowShouldClose())
             {

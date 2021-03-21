@@ -23,7 +23,7 @@ namespace GUILIB.Widgets.Other
 
         public override void Draw()
         {
-            DrawTexture(texture, posX, posY, colour);
+            //DrawTexture(texture, posX, posY, colour);
         }
     }
 }
