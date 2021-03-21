@@ -28,7 +28,7 @@ namespace GUILIB.Widgets
 
         public override void Update()
         {
-            if (CheckCollisionRecs(widgetRectangle, Window.mouseRectangle))
+            if (CheckCollisionRecs(widgetRectangle, Window.MouseRectangle))
             {
                 if (IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
                 {
