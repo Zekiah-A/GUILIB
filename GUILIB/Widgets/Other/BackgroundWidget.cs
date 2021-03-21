@@ -20,10 +20,8 @@ namespace GUILIB.Widgets.Other
         {
             if(scales)
             {
-                Rectangle scaledRect = new Rectangle(widgetRectangle.x, widgetRectangle.y, (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight());
-                widgetRectangle = scaledRect;
-                DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness + 1, outlineColor);
-                DrawRectangleRounded(widgetRectangle, roundness, 8, color);
+                DrawRectangleRoundedLines(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, outlineThickness + 1, outlineColor);
+                DrawRectangleRounded(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, color);
             }else 
             {
                 DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness + 1, outlineColor);

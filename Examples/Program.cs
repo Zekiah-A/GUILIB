@@ -16,14 +16,14 @@ namespace Examples
         static BackgroundWidget backgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 256, 256), Color.BROWN, false);
         static TextWidget textWidget = new TextWidget(new Rectangle(512, 512, 512, 512), Color.RED, false, "Red", 15, true);
         static ToggleButtonWidget toggleButtonWidget = new ToggleButtonWidget(new Rectangle(512, 256, 75, 27), Color.GRAY, false);
-        //SCALED STUFF
-        static ButtonWidget buttonWidget2 = new ButtonWidget(new Rectangle(512, 64, 20, 20), Color.RED, true, 0.25f, 1, "Maths", 15, true);
-        static BackgroundWidget backgroundWidget2 = new BackgroundWidget(new Rectangle(512, 32, 30, 30), Color.BROWN, true);
-        static ToggleButtonWidget toggleButtonWidget2 = new ToggleButtonWidget(new Rectangle(600, 256, 20, 5), Color.GRAY, true);
+        
+        //SCALED ELEMENTS
+        static BackgroundWidget backgroundWidget2 = new BackgroundWidget(new Rectangle(80, 0, 20, 100), Color.BROWN, true);
+        static ButtonWidget buttonWidget2 = new ButtonWidget(new Rectangle(80, 40, 20, 20), Color.RED, true, 0.25f, 1, "Maths", 15, true);
 
         // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
         //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
-        static List<Widget> Widget = new List<Widget>() { backgroundWidget, buttonWidget, textWidget, toggleButtonWidget, backgroundWidget2, buttonWidget2, toggleButtonWidget2 };
+        static List<Widget> Widget = new List<Widget>() { backgroundWidget, buttonWidget, textWidget, toggleButtonWidget, backgroundWidget2, buttonWidget2 };
 
         static void Main()
         {
