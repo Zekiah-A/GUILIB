@@ -8,6 +8,8 @@ namespace GUILIB.Styles.Buttons
         public Color switchColour = new Color(235, 235, 235, 255);
         public Color backgroundColour = new Color(200, 200, 200, 255);
         public Color borderColour = new Color(185, 185, 185, 255);
+
+        public Color switchSelectedColour = new Color(210, 210, 210, 255);
         #endregion
 
         public int edgeBorder = 10;
