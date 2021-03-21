@@ -18,9 +18,11 @@ namespace Examples
         static int ClicksAmount;
         static LabelWidget LabelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {ClicksAmount}", true, 15);
 
+        static ToggleWidget ToggleWidget = new ToggleWidget(new Rectangle(64, 180, 64 ,20), Color.BLACK, true, 10);
+
         // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
         //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
-        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget };
+        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget, ToggleWidget };
 
         static void Main()
         {
