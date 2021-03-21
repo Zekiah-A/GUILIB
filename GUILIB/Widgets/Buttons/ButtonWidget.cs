@@ -1,81 +1,43 @@
-﻿using System;
-using GUILIB.Styles.Buttons;
-using GUILIB.Core;
-using static Raylib_cs.Raylib;
+﻿using static Raylib_cs.Raylib;
 using Raylib_cs;
 
 namespace GUILIB.Widgets.Buttons
 {
     public class ButtonWidget : Widget
     {
-        public event EventHandler OnButtonPressed;
-        public new event EventHandler OnMouseExited;
-        public new event EventHandler OnMouseHover;
-
+        public float roundness;
+        public int outlineThickness;
         public string text;
         public int textSize;
-        public bool isToggled = false;
-        public ButtonStyle buttonStyle;
+        public bool wrapText;
+        
+        public Color textColor = new Color(0, 0, 0, 255);
+        public Color outlineColor = new Color(0, 0, 0, 255);
 
-        private Color _currentBackgroundColor;
-        private Color _currentOutlineColor;
-        private Color _currentTextColor;
         private Rectangle _textRectangle;
 
-        public ButtonWidget(Rectangle rectangle, ButtonStyle buttonStyle, string text, int textSize)
+        public ButtonWidget(Rectangle widgetRectangle, Color color, float roundness = 0.25f, 
+                            int outlineThickness = 1, string text = "", int textSize = 15, bool wrapText = false) : base(widgetRectangle, color)
         {
-            widgetRectangle = rectangle;
-            this.buttonStyle = buttonStyle;
+            this.roundness = roundness;
+            this.outlineThickness = outlineThickness;
             this.text = text;
             this.textSize = textSize;
+            this.wrapText = wrapText;
         }
 
         public override void Update()
         {
-            if (CheckCollisionRecs(widgetRectangle, Window.MouseRectangle))
-            {
-                if (IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
-                {
-                    OnButtonPressed?.Invoke(this, EventArgs.Empty);
-                    isToggled = !isToggled;
-                }
-
-                if (IsMouseButtonDown(MouseButton.MOUSE_LEFT_BUTTON))
-                {
-                    _currentBackgroundColor = buttonStyle.backgroundPressedColor;
-                    _currentOutlineColor = buttonStyle.outlinePressedColor;
-                    _currentTextColor = buttonStyle.outlinePressedColor;
-                }
-                else
-                {
-                    OnMouseHover?.Invoke(this, EventArgs.Empty);
-                    _currentBackgroundColor = buttonStyle.backgroundHoverColor;
-                    _currentOutlineColor = buttonStyle.outlineHoverColor;
-                    _currentTextColor = buttonStyle.textHoverColor;
-                }
-            }
-            else
-            {
-                OnMouseExited?.Invoke(this, EventArgs.Empty);
-                _currentBackgroundColor = buttonStyle.backgroundIdleColor;
-                _currentOutlineColor = buttonStyle.outlineIdleColor;
-                _currentTextColor = buttonStyle.textIdleColor;
-            }
-
-            switch (buttonStyle.textMargin)
-            {
-                case "TopLeft":
-                    _textRectangle = new Rectangle(widgetRectangle.x + buttonStyle.outlineThickness, widgetRectangle.y + buttonStyle.outlineThickness,
-                                                   widgetRectangle.width - buttonStyle.outlineThickness, widgetRectangle.height - buttonStyle.outlineThickness);
-                    break;
-            }
+            _textRectangle = new Rectangle(widgetRectangle.x + outlineThickness, widgetRectangle.y + outlineThickness,
+                                          widgetRectangle.width - outlineThickness, widgetRectangle.height - outlineThickness);
+            base.Update();
         }
 
         public override void Draw()
         {
-            DrawRectangleRounded(widgetRectangle, buttonStyle.roundness, 8, _currentBackgroundColor);
-            DrawRectangleLinesEx(widgetRectangle, buttonStyle.outlineThickness, _currentOutlineColor);
-            DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, true, _currentTextColor);
+            DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness, outlineColor);
+            DrawRectangleRounded(widgetRectangle, roundness, 8, color);
+            DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, wrapText, textColor);
         }
     }
 }

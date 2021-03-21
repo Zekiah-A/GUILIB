@@ -9,13 +9,14 @@ namespace GUILIB.Core
         public static string Title;
         public static int Width;
         public static int Height;
+        public static int MinimumWidth;
+        public static int MinimumHeight;
         public static bool Resizable;
 
         /// <summary>
         ///     When the users closes the program, this bool becomes true.
         /// </summary>
         public static bool ProgramClosed { private set { } get { return WindowShouldClose(); } }
-
         public static Rectangle MouseRectangle { private set; get; }
 
         /// <summary>
@@ -25,12 +26,17 @@ namespace GUILIB.Core
         /// <param name="title"> The window's title.</param>
         /// <param name="width"> Sets the window's width.</param>
         /// <param name="height"> Sets the window's height.</param>
+        /// <param name="minimumWidth"> Sets the window's minimum width.</param>
+        /// <param name="minimumHeight"> Sets the window's minimum height.</param>
         /// <param name="resizable"> Enable or disable window resizing.</param>
-        public static void Setup(string title = "GUILIB", int width = 1024, int height = 576, bool resizable = true)
+        public static void Setup(string title = "GUILIB", int width = 1024, int height = 576, 
+                                 int minimumWidth = 256, int minimumHeight = 144, bool resizable = true)
         {
             Title = title;
             Width = width;
             Height = height;
+            MinimumWidth = minimumWidth;
+            MinimumHeight = minimumHeight;
             Resizable = resizable;
         }
 
@@ -43,9 +49,11 @@ namespace GUILIB.Core
             if (Resizable)
             {
                 SetConfigFlags(ConfigFlag.FLAG_WINDOW_RESIZABLE);
+                //SetConfigFlags(ConfigFlag.FLAG_WINDOW_HIGHDPI);
+                //SetConfigFlags(ConfigFlag.FLAG_MSAA_4X_HINT);
             }
             InitWindow(Width, Height, Title);
-            SetWindowMinSize(Width, Height);
+            SetWindowMinSize(MinimumWidth, MinimumHeight);
             SetTargetFPS(60);
         }
 
@@ -53,6 +61,8 @@ namespace GUILIB.Core
         ///     Draws all widgets to the screen.
         /// </summary>
         /// <param name="widgets"> An array that contains all window's widgets.</param>
+        /// <param name="backgroundColor"> Set the background's color. Choose colors from the Raylib class "Color".</param>
+
         public static void Draw(Widget[] widgets, Color backgroundColor)
         {
             if (!ProgramClosed)

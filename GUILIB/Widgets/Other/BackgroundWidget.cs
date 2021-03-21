@@ -1,25 +1,26 @@
-using System;
-using GUILIB.Core;
-using static Raylib_cs.Raylib;
 using Raylib_cs;
+using static Raylib_cs.Raylib;
 
 namespace GUILIB.Widgets.Other
 {
     public class BackgroundWidget : Widget
     {
-        public Color backgroundColour;
         public float roundness;
+        public int outlineThickness;
 
-        public BackgroundWidget(Rectangle rectangle, Color background, float roundness)
+        public Color outlineColor = new Color(0, 0, 0, 255);
+
+        public BackgroundWidget(Rectangle widgetRectangle, Color color, float roundness = 0.25f, int outlineThickness = 1) : base(widgetRectangle, color)
         {
-            this.widgetRectangle = rectangle;
-            this.backgroundColour = background;
             this.roundness = roundness;
+            this.outlineThickness = outlineThickness;
         }
 
         public override void Draw()
         {
-            DrawRectangleRounded(widgetRectangle, roundness, 8, backgroundColour);
+            DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness + 1, outlineColor);
+            DrawRectangleRounded(widgetRectangle, roundness, 8, color);
         }
     }
 }
+

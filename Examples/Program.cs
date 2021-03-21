@@ -5,64 +5,66 @@ using GUILIB.Widgets;
 using GUILIB.Widgets.Buttons;
 using GUILIB.Widgets.Other;
 using GUILIB.Widgets.Text;
-using GUILIB.Styles.Buttons;
 using Raylib_cs;
 
 namespace Examples
 {
     class Program
     {
-        static BackgroundWidget BackgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
-        static ButtonWidget ButtonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
 
-        static int ClicksAmount;
-        static LabelWidget LabelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {ClicksAmount}", true, 15);
-
-        static ToggleWidget ToggleWidget = new ToggleWidget(new Rectangle(64, 180, 64 ,20), new ToggleStyle(), true);
+        static ButtonWidget buttonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), Color.RED, 0.25f, 1, "Maths", 15, true);
+        static BackgroundWidget backgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 256, 256), Color.BROWN);
+        static TextWidget textWidget = new TextWidget(new Rectangle(512, 512, 512, 512), Color.RED, "Red", 15, true);
+        static ToggleButtonWidget toggleButtonWidget = new ToggleButtonWidget(new Rectangle(512, 256, 75, 27), Color.GRAY);
 
         // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
         //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
-        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget, ToggleWidget };
+        static List<Widget> Widget = new List<Widget>() { backgroundWidget, buttonWidget, textWidget, toggleButtonWidget };
 
         static void Main()
         {
-            ButtonWidget.OnButtonPressed += ButtonWidget_OnButtonPressed;
-            ButtonWidget.OnMouseExited += ButtonWidget_OnMouseExited;
-            ButtonWidget.OnMouseHover += ButtonWidget_OnMouseHover;
+            buttonWidget.OnMouseInside += ButtonWidget_OnMouseInside;
+            buttonWidget.OnMouseOutside += ButtonWidget_OnMouseOutside;
+            buttonWidget.OnMousePress += ButtonWidget_OnMousePress;
+
+            toggleButtonWidget.OnButtonToggled += ToggleButtonWidget_OnButtonToggled;
 
             Window.Setup();
             Window.Run();
 
             while (!Window.ProgramClosed)
             {
-                Window.Draw(Widget.ToArray(), Color.GRAY);
+                Window.Draw(Widget.ToArray(), Color.WHITE);
             }
         }
 
-        private static void ButtonWidget_OnMouseHover(object sender, EventArgs eventArgs)
+        private static void ToggleButtonWidget_OnButtonToggled(object sender, EventArgs e)
         {
-            ButtonWidget.textSize = 14;
-            ButtonWidget.text = "Hovering";
-        }
-
-        private static void ButtonWidget_OnMouseExited(object sender, EventArgs eventArgs)
-        {
-            ButtonWidget.textSize = 14;
-            ButtonWidget.text = "Outside";
-        }
-
-        private static void ButtonWidget_OnButtonPressed(object sender, EventArgs eventArgs)
-        {
-            ButtonWidget.textSize = 14;
-            ButtonWidget.text = "Pressed";
-
-            if (ClicksAmount == 15)
+            if (toggleButtonWidget.isToggled)
             {
-                Widget.Add(new LabelWidget(new Rectangle(256, 64, 128, 128), Color.RED, "Level up!", true, 25));
-            }
 
-            ClicksAmount++;
-            LabelWidget.text = $"Clicks: {ClicksAmount}";
+            toggleButtonWidget.buttonColor = Color.LIME;
+            }
+            else
+            {
+                toggleButtonWidget.buttonColor = Color.RED;
+            }
+        }
+
+        private static void ButtonWidget_OnMousePress(object sender, EventArgs e)
+        {
+            buttonWidget.outlineThickness = 1;
+            backgroundWidget.outlineThickness++;
+        }
+
+        private static void ButtonWidget_OnMouseOutside(object sender, EventArgs e)
+        {
+            buttonWidget.outlineThickness = 2;
+        }
+
+        private static void ButtonWidget_OnMouseInside(object sender, EventArgs e)
+        {
+            buttonWidget.outlineThickness = 3;
         }
     }
 }
