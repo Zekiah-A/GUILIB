@@ -44,10 +44,10 @@ namespace GUILIB.Widgets
             DrawRectangleLinesEx(widgetRectangle,  /*buttonStyle.outlineThickness*/ 2, _currentOutlineColor);
             if(isOn)
             {
-                DrawRectangleRounded(new Rectangle(widgetRectangle.x, widgetRectangle.y+_border/2, widgetRectangle.height, widgetRectangle.height-_border), 0, 8, Color.WHITE);
+                DrawRectangleRounded(new Rectangle(widgetRectangle.x, widgetRectangle.y/*+_border/2*/, widgetRectangle.height, widgetRectangle.height/*-_border*/), 0, 8, Color.WHITE);
             }else
             {
-                DrawRectangleRounded(new Rectangle(widgetRectangle.x + widgetRectangle.width - widgetRectangle.height, widgetRectangle.y+_border/2, widgetRectangle.height, widgetRectangle.height-_border), 0, 8, Color.WHITE);
+                DrawRectangleRounded(new Rectangle(widgetRectangle.x + widgetRectangle.width - widgetRectangle.height, widgetRectangle.y/*+_border/2*/, widgetRectangle.height, widgetRectangle.height/*-_border*/), 0, 8, Color.WHITE);
             }
         }
     }
