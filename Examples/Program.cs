@@ -20,6 +20,7 @@ namespace Examples
         //SCALED ELEMENTS
         static BackgroundWidget backgroundWidget2 = new BackgroundWidget(new Rectangle(80, 0, 20, 100), Color.BROWN, true);
         static ButtonWidget buttonWidget2 = new ButtonWidget(new Rectangle(80, 40, 20, 20), Color.RED, true, 0.25f, 1, "Maths", 15, true);
+        //static TextWidget textWidget = new TextWidget(new Rectangle(512, 512, 512, 512), Color.RED, false, "Red", 15, true);
 
         // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
         //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
